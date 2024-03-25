@@ -1,4 +1,4 @@
-## Sift: Channel-Wise Partial Historical Embedding for High Efficiency Distributed Graph Neural Network Training with Accuracy Guarantee
+# Sift: Channel-Wise Partial Historical Embedding for High Efficiency Distributed Graph Neural Network Training with Accuracy Guarantee
 
 The source code of the Sift framework for high efficiency distributed graph neural network training with accuracy guarantee.
 ![image](https://github.com/xzwbsz/Sift/assets/44642002/ddd609dc-f0fd-4f22-acfe-1fe2736b697b)
@@ -29,6 +29,10 @@ torchvision                   0.11.2+cu111 \\
 torchviz                      0.0.2 \\
 
 ## Autorun Script
-bash autorun.sh <br>
+
+```c
+bash autorun.sh 
+```
+<br>
 The script depends on fyJu_withSawtooth.py or base_withoutSawtooth.py
 Users can change parameter in autorun.sh to test combination under different parallelisms.
