@@ -36,3 +36,6 @@ bash autorun.sh
 <br>
 The script depends on fyJu_withSawtooth.py or base_withoutSawtooth.py
 Users can change parameter in autorun.sh to test combination under different parallelisms.
+
+## Acknowledgement
+The project is developed based on [Sancus](https://github.com/chenzhao/light-dist-gnn), [GNNAutoScale](https://github.com/rusty1s/pyg_autoscale) and DIGEST for distributed historical embedding mechanism.
