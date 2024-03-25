@@ -37,5 +37,12 @@ bash autorun.sh
 The script depends on fyJu_withSawtooth.py or base_withoutSawtooth.py
 Users can change parameter in autorun.sh to test combination under different parallelisms.
 
+## Using Different GNN model
+We provide a full function python file 'fyJu_withSawtooth.py', channel-wise replacement without Sawtooth Rearrangement file 'base_withoutSawtooth.py' and other normal benchmark in this project.
+
+Users can replace 'gcn.py' in autorun.sh with any file in this project such as 'fyJu_withSawtooth.py' to test different implementations.
+
+
+
 ## Acknowledgement
 The project is developed based on [Sancus](https://github.com/chenzhao/light-dist-gnn), [GNNAutoScale](https://github.com/rusty1s/pyg_autoscale) and DIGEST for distributed historical embedding mechanism.
