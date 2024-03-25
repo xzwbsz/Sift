@@ -1,10 +1,32 @@
 if __name__ == "__main__":
 
     import dgl
+    import torch
     import torch as th
     import dgl.function as fn
     import csv
     import random
+    from torch_sparse import spmm
+    from scipy import sparse
+
+    ## Define sparse matrix multiplication
+    def dense2sparseMM(m,n):
+        #m-sparse n-dense
+        m = m.squeeze()
+        M1 = m.shape[0]
+        N1 = m.shape[1]
+        M2 = n.shape[0]
+        N2 = n.shape[1]
+        n=n.T
+        m=m.T
+        i2 = torch.where(n!=0)
+        v2  = n[i2]
+        i2 = torch.stack(i2)
+        # v2 = n[i2[0],i2[1]]
+        out = spmm(i2,v2,N2,M2,m)
+        out = out.T
+        out = out.unsqueeze(0)
+        return out
 
     dgl.distributed.initialize(ip_config='ip_config.txt')
     th.distributed.init_process_group(backend='nccl')
@@ -135,6 +157,19 @@ if __name__ == "__main__":
             return True
         # rprint("!update_num_select")
         return False
+    
+    # Sawtooth Rearrangement and Sparsity Process
+    def Sawtooth(matrix,score):
+        matrix = np.array(matrix)
+        score = np.array(score)
+        Sort = np.sort(score)
+        threshlod = Sort[int((np.pi/4)*Sort.shape[0])] # fetch the top pi/4 as updating channel
+        sub = np.where(score<threshlod, 0, matrix) # judge the score, if <threshlod then use historical embedding
+        data=np.where(score<threshlod, data, matrix)
+        # im_modified = Mae+save_file
+        sub = sub.reshape(sub.shape[0]*sub.shape[1]*sub.shape[2],sub.shape[3])
+        allmatrix_sp=sparse.csr_matrix(sub)
+        return matrix
 
     class GCN(nn.Module):
         def __init__(self, in_feats, n_hidden, n_classes, n_layers):
@@ -150,6 +185,8 @@ if __name__ == "__main__":
                     n_hidden, n_hidden, allow_zero_in_degree=True))
             self.layers.append(dglnn.GraphConv(
                 n_hidden, n_classes, allow_zero_in_degree=True))
+            self.use_sawtooth = 0
+            self.score = 1
 
         # def forward(self, blocks, x, epoch):
         #     #print(x.shape)
@@ -210,6 +247,11 @@ if __name__ == "__main__":
                 tue = time()
                 global tu
                 tu += tue-tus
+
+            # use sawtooth
+            if self.use_sawtooth:
+                Sawtooth(x,self.score)
+
             return x
 
     sample_n_num = [25, 10]
