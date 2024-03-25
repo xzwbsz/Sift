@@ -29,6 +29,6 @@ torchvision                   0.11.2+cu111 \\
 torchviz                      0.0.2 \\
 
 ## Autorun Script
-bash autorun.sh \n
+bash autorun.sh <br>
 The script depends on fyJu_withSawtooth.py or base_withoutSawtooth.py
 Users can change parameter in autorun.sh to test combination under different parallelisms.
