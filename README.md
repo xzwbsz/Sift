@@ -4,7 +4,7 @@ The source code of the Sift framework for high efficiency distributed graph neur
 
 ## Basic Requirements
 
-dgl                           1.0.2+cu113
+dgl                           1.0.2+cu113 \\
 numba                         0.57.0
 numpy                         1.24.2
 numpydoc                      1.5.0
