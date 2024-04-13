@@ -1,9 +1,8 @@
-/home/gnn/miniconda3/envs/dgl/bin/python /home/gnn/workplace/hanjzTEST/dglexp/launch.py \
-  --workspace ~/workplace/hanjzTEST/dglexp/ \
+/home/gnn/miniconda3/envs/dgl/bin/python launch.py \
+  --workspace ./ \
   --num_trainers 2 \
   --num_samplers 1 \
   --num_servers 2 \
-  --part_config ogbn_arxiv2part_data/ogbn-arxiv.json \
+  --part_config part_data/ogbn-arxiv.json \
   --ip_config ip_config.txt \
-  "/home/gnn/miniconda3/envs/dgl/bin/python /home/gnn/workplace/hanjzTEST/dglexp/nn/fyJu_withSawtooth.py"
-  ## here using gat or sage to replace gcn can test other benchmark
+  "/nn/fyJu.py"
